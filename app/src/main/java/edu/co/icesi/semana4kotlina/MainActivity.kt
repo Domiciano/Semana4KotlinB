@@ -23,7 +23,7 @@ import java.io.File
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
-    private lateinit var launcher: ActivityResultLauncher<Intent>
+    private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var file: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         //Registro de callback
-        launcher = registerForActivityResult(StartActivityForResult(), ::onResult)
+        cameraLauncher = registerForActivityResult(StartActivityForResult(), ::onCameraResult)
 
         ActivityCompat.requestPermissions(this, arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -68,12 +68,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 Log.e(">>>",file.toString())
                 val uri = FileProvider.getUriForFile(this, packageName, file)
                 i.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-                launcher.launch(i)
+                cameraLauncher.launch(i)
             }
         }
     }
 
-    private fun onResult(activityResult: ActivityResult?) {
+    private fun onCameraResult(activityResult: ActivityResult?) {
         val image = BitmapFactory.decodeFile(file.path)
         mainImage.setImageBitmap(image)
     }
