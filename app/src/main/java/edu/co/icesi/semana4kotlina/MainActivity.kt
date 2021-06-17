@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         //Registro de callback
         cameraLauncher = registerForActivityResult(StartActivityForResult(), ::onCameraResult)
 
-        ActivityCompat.requestPermissions(this, arrayOf(
+        requestPermissions(arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
